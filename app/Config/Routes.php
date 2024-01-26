@@ -15,4 +15,5 @@ $routes->group('/home', static function($routes){
 $routes->group('/api', static function($routes){
     $routes->post('login-public', 'AuthController::loginPublic');
     $routes->post('login-staff', 'AuthController::loginStaff');
+    $routes->post('register-public', 'AuthController::registrationPublic');
 });
