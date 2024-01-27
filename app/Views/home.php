@@ -1,17 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<?= $this->extend('layout/page_layout') ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arsip Panel</title>
+<?= $this->section('content') ?>
 
-    <?= $this->include('layout/css_session') ?>
-</head>
+<div class="container">
 
-<body>
-    <h1>YOU ARE ALREADY LOGGED IN</h1>
-    <?= $this->include('layout/js_session') ?>
-</body>
+</div>
 
-</html>
+<?= $this->endSection() ?>

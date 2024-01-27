@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Protal Berita Codeigniter</title>
+	<title>Arsip Disperpuska</title>
 
     <?= $this->include('layout/css_session') ?>
 </head>
@@ -20,34 +20,26 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link" href="<?= base_url('about') ?>">About</a>
+						<a class="nav-link" href="<?= base_url('home/surat') ?>">Surat</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="<?= base_url('contact') ?>">Contact</a>
+						<a class="nav-link" href="<?= base_url('home/public') ?>">Anggota</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="<?= base_url('faqs') ?>">Faqs</a>
+						<a class="nav-link" href="<?= base_url('home/admin') ?>">Admin</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="<?= base_url('home/logout') ?>">Logout</a>
 					</li>
 				</ul>
 			</div>
 		</div>
 	</nav>
-
-
-	<header class="jumbotron jumbotron-fluid">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<h1 class="h1">Portal Berita Codeigniter</h1>
-				</div>
-			</div>
-		</div>
-    </header>
     
     <?= $this->renderSection('content') ?>
 
-	<footer class="jumbotron jumbotron-fluid mt-5 mb-0">
-		<div class="container text-center">Copyright &copy <?= Date('Y') ?> CI News</div>
+	<footer class="bg-secondary text-center text-lg-start fixed-bottom">
+		<div class="container text-center p-3">Copyright &copy <?= Date('Y') ?> Kearsipan</div>
 	</footer>
 
     <?= $this->include('layout/js_session') ?>

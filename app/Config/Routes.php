@@ -10,6 +10,10 @@ $routes->post('/login', 'LoginController::login');
 
 $routes->group('/home', static function($routes){
     $routes->get('/', 'HomeController::index');
+    $routes->get('public', 'HomeController::public');
+    $routes->get('public/delete/(:num)', 'HomeController::publicDelete/$1');
+    $routes->get('admin', 'HomeController::admin');
+    $routes->get('surat', 'HomeController::surat');
 });
 
 $routes->group('/api', static function($routes){
