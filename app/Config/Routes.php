@@ -16,4 +16,7 @@ $routes->group('/api', static function($routes){
     $routes->post('login-public', 'AuthController::loginPublic');
     $routes->post('login-staff', 'AuthController::loginStaff');
     $routes->post('register-public', 'AuthController::registrationPublic');
+
+    $routes->get('search-arsip', 'ArchiveController::findArchived');
+    $routes->post('borrow-arsip', 'ArchiveController::leanArchive');
 });

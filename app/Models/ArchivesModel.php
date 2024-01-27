@@ -4,9 +4,9 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class PublicModel extends Model
+class ArchivesModel extends Model
 {
-    protected $table      = 'publics';
+    protected $table      = 'archives';
     protected $primaryKey = 'id';
 
     protected $useAutoIncrement = true;
@@ -14,12 +14,10 @@ class PublicModel extends Model
     protected $returnType     = 'object';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['name', 'email','area', 'phone', 'created_at', 'updated_at'];
+    protected $allowedFields = ['archives_number', 'institute', 'on_date', 'isi', 'status', 'created_at'];
 
     // Dates
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-
 }
