@@ -14,7 +14,7 @@ class StaffModel extends Model
     protected $returnType     = 'object';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['name', 'role','nip', 'updated_at','created_at'];
+    protected $allowedFields = ['name', 'role','nip','password', 'updated_at','created_at'];
 
     // Dates
     protected $useTimestamps = true;

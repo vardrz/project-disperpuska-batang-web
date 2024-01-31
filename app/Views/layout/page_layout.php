@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Arsip Disperpuska</title>
 
-    <?= $this->include('layout/css_session') ?>
+	<?= $this->include('layout/css_session') ?>
 </head>
 
 <body>
@@ -35,14 +35,21 @@
 			</div>
 		</div>
 	</nav>
-    
-    <?= $this->renderSection('content') ?>
+
+	<?php if (!empty(session()->getFlashdata('message'))) : ?>
+
+		<div class="alert alert-danger">
+			<?php echo session()->getFlashdata('message'); ?>
+		</div>
+
+	<?php endif ?>
+	<?= $this->renderSection('content') ?>
 
 	<footer class="bg-secondary text-center text-lg-start fixed-bottom">
 		<div class="container text-center p-3">Copyright &copy <?= Date('Y') ?> Kearsipan</div>
 	</footer>
 
-    <?= $this->include('layout/js_session') ?>
+	<?= $this->include('layout/js_session') ?>
 </body>
 
 </html>

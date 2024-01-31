@@ -13,6 +13,8 @@ $routes->group('/home', static function($routes){
     $routes->get('public', 'HomeController::public');
     $routes->get('public/delete/(:num)', 'HomeController::publicDelete/$1');
     $routes->get('admin', 'HomeController::admin');
+    $routes->get('admin/delete/(:num)', 'HomeController::adminDelete/$1');
+    $routes->post('admin/save', 'HomeController::adminSave');
     $routes->get('surat', 'HomeController::surat');
 });
 
