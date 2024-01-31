@@ -2,23 +2,37 @@
 
 namespace App\Controllers;
 
+use App\Models\ArchivesModel;
+use App\Models\BorrowModel;
 use App\Models\PublicModel;
 use App\Models\StaffModel;
-use PhpParser\Node\Expr\Cast\Object_;
 use stdClass;
 
 class HomeController extends BaseController
 {
     protected $publicsModel;
+    protected $archivesModel;
+    protected $borrowModel;
     protected $staffsModel;
+
 
     public function __construct() {
         $this->publicsModel = new PublicModel();
         $this->staffsModel = new StaffModel();
+        $this->archivesModel = new ArchivesModel();
+        $this->borrowModel = new BorrowModel();
     }
+    
     public function index(): string
     {
-        return view('home');
+        $totalSurat = $this->archivesModel->countAllResults();
+        $totalMember = $this->publicsModel->countAllResults();
+        $totalPinjam = $this->borrowModel->countAllResults();
+        return view('home',[
+            'surat'     =>  $totalSurat,
+            'member'    =>  $totalMember,
+            'pinjam'    =>  $totalPinjam,
+        ]);
     }
 
     public function public(): string {
