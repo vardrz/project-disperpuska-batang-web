@@ -14,10 +14,11 @@ class ArchivesModel extends Model
     protected $returnType     = 'object';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['archives_number', 'institute', 'on_date', 'isi', 'status', 'created_at'];
+    protected $allowedFields = ['archives_number', 'institute', 'on_date', 'isi', 'status', 'created_at', 'updated_at'];
 
     // Dates
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
 }

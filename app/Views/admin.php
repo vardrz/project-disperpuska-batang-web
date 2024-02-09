@@ -63,25 +63,25 @@
                     echo "Edit Data Admin";
                 } ?></h3>
                 <input type="hidden" name="id" value="<?=$data->id?>"/>
-                <div class="form-outline mb-4">
+                <div class="form-outline mt-4">
                     <label class="form-label" for="nip" name="nip">Nomor Pegawai</label>
                     <input type="text" id="nip" class="form-control" name="nip" value="<?=$data->nip?>"/>
                 </div>
 
-                <div class="form-outline mb-4">
+                <div class="form-outline mt-2">
                     <label class="form-label" for="nama" name="nama">Nama Lengkap</label>
                     <input type="text" id="nama" class="form-control" name="nama" value="<?=$data->name?>"/>
                 </div>
 
-                <div class="form-outline mb-4">
+                <div class="form-outline mt-2">
                     <label class="form-label" for="password">Password</label>
                     <input type="text" id="password" class="form-control" name="password" value="<?=$data->password?>"/>
                 </div>
                 
-                <label class="form-label mb-4" for="tipe">Tipe</label>
+                <label class="form-label mt-2" for="tipe">Tipe</label>
                 <select class="browser-default custom-select" id="tipe" name="tipe" value="<?=$data->role?>">
-                    <option value="1" selected>Staff</option>
-                    <option value="2">Admin</option>
+                    <option value="staff" selected>Staff</option>
+                    <option value="admin">Admin</option>
                 </select>
 
                 <button type="submit" class="btn btn-primary btn-block mt-4">Simpan</button>

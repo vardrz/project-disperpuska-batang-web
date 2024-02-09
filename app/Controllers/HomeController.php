@@ -117,6 +117,22 @@ class HomeController extends BaseController
     }
 
     public function surat(): string {
+        $request = request();
+        $archivesData = $this->archivesModel->findAll();
+        $is_new = $request->getPost("is_new");
+        if(empty($is_new)) return view('surat_list', ['data_surat'=>$archivesData]);
 
+        $result = $this->archivesModel->insert([
+            'archives_number'      =>  $request->getPost("number"),
+            'institute'            =>  $request->getPost("instansi"),
+            'on_date'              =>  $request->getPost("tanggal"),
+            'isi'                  =>  $request->getPost("isi"),
+            'status'               =>  $request->getPost("status"),
+        ], false);
+
+        if(!$result) {
+            session()->setFlashdata('message','Terjadi kesalahan');
+        }
+        return redirect()->to(base_url('home/surat'));
     }
 }
