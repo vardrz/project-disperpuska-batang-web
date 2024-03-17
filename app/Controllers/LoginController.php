@@ -29,19 +29,25 @@ class LoginController extends BaseController
                     'required' => 'NIP tidak boleh kosong.'
                 ]
             ],
+            'password' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Password tidak boleh kosong.'
+                ]
+            ],
         ]);
 
         
         if(!$validation){
-            session()->setFlashdata('message','NIP tidak boleh kosong');
+            session()->setFlashdata('message','Data harus lengkap');
             return redirect()->to(base_url(''));
         }
 
         $nip = $this->request->getPost('nip');
+        $password = $this->request->getPost('password');
 
-        $userStaff = $this->staffModel->where('nip', $nip)->get()->getFirstRow();
-        if(empty($userStaff)) {
-            session()->setFlashdata('message', 'NIP tidak dikenal');
+        $userStaff = $this->staffModel->where('nip', $nip)->where('password', $password)->get()->getFirstRow();        if(empty($userStaff)) {
+            session()->setFlashdata('message', 'Data tidak dikenal');
             return redirect()->to(base_url(''));
         }
         

@@ -58,11 +58,15 @@ class AuthController extends ResourceController
 
         $rules = [
             "nip" => "required",
+            "password" => "required",
         ];
 
         $messages = [
             "nip" => [
                 "required" => "NIP tidak boleh kosong"
+            ],
+            "password" => [
+                "required"  => "Password tidak boleh kosong"
             ],
         ];
 
@@ -72,7 +76,11 @@ class AuthController extends ResourceController
             'data' => null
         ]);
 
-        $data = $this->staffModel->where('nip', $request->getPost('nip'))->first();
+        $data = $this->staffModel
+            ->where('nip', $request->getPost('nip'))
+            ->where('password', $request->getPost('password'))
+            ->first();
+            
         if (empty($data)) return $this->respond([
             'status' => 332,
             'message' => "Akun tidak ditemukan",

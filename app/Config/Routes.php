@@ -29,5 +29,6 @@ $routes->group('/api', static function($routes){
     $routes->post('register-public', 'AuthController::registrationPublic');
 
     $routes->get('search-arsip', 'ArchiveController::findArchived');
+    $routes->get('borrow-list', 'ArchiveController::borrowList');
     $routes->post('borrow-arsip', 'ArchiveController::leanArchive');
 });

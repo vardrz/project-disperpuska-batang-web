@@ -98,14 +98,14 @@ class HomeController extends BaseController
                 'name'    =>  $request->getPost("nama"),
                 'nip'     =>  $request->getPost("nip"),
                 'password'   =>  $request->getPost("password"),
-                'roles'   =>  $request->getPost("tipe"),
+                'role'   =>  $request->getPost("tipe"),
             ], false);
         }else{
             $result = $this->staffsModel->update($id, [
                 'name'    =>  $request->getPost("nama"),
                 'nip'     =>  $request->getPost("nip"),
                 'password'   =>  $request->getPost("password"),
-                'roles'   =>  $request->getPost("tipe"),
+                'role'   =>  $request->getPost("tipe"),
             ]);
         }
         

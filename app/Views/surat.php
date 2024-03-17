@@ -69,9 +69,9 @@
             </div>
 
             <label class="form-label mt-2" for="status">Status</label>
-            <select class="browser-default custom-select" id="status" name="status" value="<?= $data->status ?>">
-                <option value="public" selected>Public</option>
-                <option value="internal">Internal</option>
+            <select class="browser-default custom-select" id="status" name="status">
+                <option value="public" <?= ($data->status == 'public')?'selected="selected"':''?>>Publik</option>
+                <option value="internal" <?= ($data->status == 'internal')?'selected="selected"':''?>>Internal</option>
             </select>
 
             <button type="submit" class="btn btn-primary btn-block mt-4">Simpan</button>

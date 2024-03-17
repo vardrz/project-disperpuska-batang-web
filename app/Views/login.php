@@ -21,8 +21,13 @@
                                 <h3 class="mb-5 text-center">Sign in As Staff</h3>
 
                                 <div class="form-group form-outline mb-4">
-                                    <label class="form-label" for="nip">NIP</label>
+                                    <label class="form-label" for="nip">Nomor Induk Pegawai</label>
                                     <input id="nip" class="form-control form-control-lg" name="nip" />
+                                </div>
+
+                                <div class="form-group form-outline mb-4">
+                                    <label class="form-label" for="password">Password</label>
+                                    <input id="password" class="form-control form-control-lg" name="password" />
                                 </div>
 
                                 <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>

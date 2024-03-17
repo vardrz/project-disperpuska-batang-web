@@ -23,11 +23,30 @@ class ArchiveController extends ResourceController
     public function findArchived() {
         $request = request();
         $data = $request->getGet("query");
-        $data = $this->archiveModel->like('archives_number',$data)->orLike('isi',$data)->orLike('institute', $data)->get()->getResultObject();
+        $isStaff = $request->getGet("is_staff");
+        if($isStaff == "1"){
+            $result = $this->archiveModel
+                ->like('archives_number',$data)
+                ->orLike('isi',$data)
+                ->orLike('institute', $data)
+                ->get()
+                ->getResultObject();
+        } else {
+            $result = $this->archiveModel
+                ->groupStart()
+                ->like('archives_number',$data)
+                ->orLike('isi',$data)
+                ->orLike('institute', $data)
+                ->groupEnd()
+                ->where("status","public")
+                ->get()
+                ->getResultObject();
+        }
+        
         return $this->respond([
             'status'    =>  222,
             'message'   =>  'search respond',
-            'data'      =>  $data
+            'data'      =>  $result
         ]);
     }
 
@@ -84,5 +103,24 @@ class ArchiveController extends ResourceController
                 "message"   => "Terjadi kesalahan"
             ]);
         }
+    }
+
+    public function borrowList(){
+        $id = request()->getGet("id");
+
+        if(empty($id)) return $this->respond([
+            "status"    => 929, 
+            "message"   => "ID kosong"
+        ]);
+
+        $data = $this->borrowModel->select("archives.*")->join("archives","archives.id = borrow.archives_id")->where('borrow.publics_id',$id)->get()->getResultObject();
+        if(empty($data)){
+            $data = [];
+        }
+        return $this->respond([
+            'status' => 000,
+            'message' => "Data peminjaman",
+            'data' => $data
+        ]);
     }
 }

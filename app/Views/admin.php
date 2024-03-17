@@ -79,9 +79,9 @@
                 </div>
                 
                 <label class="form-label mt-2" for="tipe">Tipe</label>
-                <select class="browser-default custom-select" id="tipe" name="tipe" value="<?=$data->role?>">
-                    <option value="staff" selected>Staff</option>
-                    <option value="admin">Admin</option>
+                <select class="browser-default custom-select" id="tipe" name="tipe">
+                    <option value="staff" <?=($data->role == 'staff'?'selected="selected"':'')?>>Staff</option>
+                    <option value="admin" <?=($data->role == 'admin'?'selected="selected"':'')?>>Admin</option>
                 </select>
 
                 <button type="submit" class="btn btn-primary btn-block mt-4">Simpan</button>

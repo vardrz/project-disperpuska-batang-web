@@ -50,22 +50,22 @@
 
         </div>
         <div class="col-4">
-            <form class="form" method="POST" action="<?= base_url('home/surat') ?>">
+            <form class="form" method="post" action="<?= base_url('home/surat/save') ?>">
                 <h3>Tambah Data Surat</h3>
                 <input type="hidden" name="is_new" value="1"/>
                 <div class="form-outline mt-4">
                     <label class="form-label" for="number" name="number">Nomor Arsip</label>
-                    <input type="text" id="number" class="form-control" name="number"/>
+                    <input type="text" id="number" class="form-control" name="archives_number"/>
                 </div>
 
                 <div class="form-outline mt-2">
                     <label class="form-label" for="instansi" name="instansi">Nama Instansi</label>
-                    <input type="text" id="instansi" class="form-control" name="instansi"/>
+                    <input type="text" id="instansi" class="form-control" name="institute"/>
                 </div>
 
                 <div class="form-outline mt-2">
                     <label class="form-label" for="tanggal">Tanggal</label>
-                    <input type="text" id="tanggal" class="form-control" name="tanggal"/>
+                    <input type="text" id="tanggal" class="form-control" name="on_date"/>
                 </div>
                 
                 <div>

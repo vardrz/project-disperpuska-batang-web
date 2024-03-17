@@ -43,15 +43,33 @@ class SuratController extends BaseController
 
     public function suratSave() {
         $request = request();
+
+        if($request->getPost("is_new") != null){
+            $result = $this->archivesModel->save([
+                'archives_number' => $request->getPost("archives_number"), 
+                'institute' => $request->getPost("institute"), 
+                'on_date' => $request->getPost("on_date"), 
+                'isi' => $request->getPost("isi"), 
+                'status' => $request->getPost("status"), 
+            ]);
+        
+            if(!$result) {
+                session()->setFlashdata('message','Terjadi Kesalahan Input');
+            }else{
+                session()->setFlashdata('message','Penambahan Berhasil');
+            }
+            return redirect()->to(base_url('home/surat'));
+        }
+
         $id = $request->getPost("id");
         if(empty($id)) {
-            session()->setFlashdata('message','Terjadi Kesalahan');
+            session()->setFlashdata('message','Terjadi Kesalahan | ID tidak dikenal');
             return redirect()->to(base_url('home/surat'));
         }
 
         $data = $this->archivesModel->find($id);
         if(empty($data)) {
-            session()->setFlashdata('message','Terjadi Kesalahan');
+            session()->setFlashdata('message','Terjadi Kesalahan | Data tidak dikenal');
             return redirect()->to(base_url('home/surat'));
         }
 
