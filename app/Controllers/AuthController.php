@@ -38,7 +38,7 @@ class AuthController extends ResourceController
             'data' => null
         ]);
 
-        $data = $this->publicModel->where('phone', $request->getPost('phone'))->first();
+        $data = $this->publicModel->where('phone', $request->getVar('phone'))->first();
         if (empty($data)) return $this->respond([
             'status' => 332,
             'message' => "Akun tidak ditemukan",
@@ -80,7 +80,7 @@ class AuthController extends ResourceController
             ->where('nip', $request->getPost('nip'))
             ->where('password', $request->getPost('password'))
             ->first();
-            
+
         if (empty($data)) return $this->respond([
             'status' => 332,
             'message' => "Akun tidak ditemukan",
@@ -139,7 +139,7 @@ class AuthController extends ResourceController
             ]);
         } else {
             return $this->respond([
-                "status"    => 232, 
+                "status"    => 232,
                 "message"   => "Mohon isi dengan benar"
             ]);
         }

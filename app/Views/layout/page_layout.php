@@ -7,6 +7,7 @@
 	<title>Arsip Disperpuska</title>
 
 	<?= $this->include('layout/css_session') ?>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 
 <body>
@@ -20,13 +21,19 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link" href="<?= base_url('home/surat') ?>">Surat</a>
+						<a class="nav-link" href="<?= base_url('home/surat') ?>">Arsip</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="<?= base_url('home/public') ?>">Anggota</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="<?= base_url('home/admin') ?>">Admin</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="<?= base_url('home/pengembalian') ?>">Pengembalian</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="<?= base_url('home/laporan') ?>">Laporan</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="<?= base_url('logout') ?>">Logout</a>
@@ -41,7 +48,10 @@
 		<div class="alert alert-danger">
 			<?php echo session()->getFlashdata('message'); ?>
 		</div>
-
+	<?php elseif (!empty(session()->getFlashdata('pesan'))) : ?>
+		<div class="alert alert-success">
+			<?php echo session()->getFlashdata('pesan'); ?>
+		</div>
 	<?php endif ?>
 	<?= $this->renderSection('content') ?>
 
@@ -49,7 +59,30 @@
 		<div class="container text-center p-3">Copyright &copy <?= Date('Y') ?> Kearsipan</div>
 	</footer>
 
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 	<?= $this->include('layout/js_session') ?>
+	<?= $this->renderSection('script') ?>
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			document.querySelector('a[href="<?= base_url('logout') ?>"]').addEventListener('click', function(e) {
+				e.preventDefault();
+				Swal.fire({
+					title: 'KELUAR?',
+					text: "Apakah Anda Ingin Keluar!",
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Ya, keluar!',
+					cancelButtonText: 'Tidak'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						window.location.href = '<?= base_url('logout') ?>';
+					}
+				});
+			});
+		});
+	</script>
 </body>
 
 </html>

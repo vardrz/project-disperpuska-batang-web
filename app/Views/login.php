@@ -27,7 +27,7 @@
 
                                 <div class="form-group form-outline mb-4">
                                     <label class="form-label" for="password">Password</label>
-                                    <input id="password" class="form-control form-control-lg" name="password" />
+                                    <input type="password" id="password" class="form-control form-control-lg" name="password" />
                                 </div>
 
                                 <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>

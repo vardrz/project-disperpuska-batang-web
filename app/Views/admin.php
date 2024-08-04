@@ -18,16 +18,6 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>NIP</th>
-                        <th>Password</th>
-                        <th>Tipe</th>
-                        <th>Action</th>
-                    </tr>
-                </tfoot>
                 <tbody>
                     <?php foreach ($staffs as $key => $value) { ?>
                         <tr>
@@ -38,7 +28,7 @@
                             <td><?= $value->role ?></td>
                             <td>
                                 <a class="btn btn-warning" href="<?= base_url('home/admin?id=' . $value->id) ?>">Edit</a>
-                                <a class="btn btn-danger" href="<?= base_url('home/admin/delete/' . $value->id) ?>">Hapus</a>
+                                <a class="btn btn-danger btn-delete" href="#" data-id="<?= $value->id ?>">Hapus</a>
                             </td>
                         </tr>
                     <?php } ?>
@@ -90,4 +80,31 @@
     </div>
 </div>
 
+<?= $this->endSection() ?>
+<?= $this->section('script') ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const deleteButtons = document.querySelectorAll('.btn-delete');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function (e) {
+            e.preventDefault();
+            const id = this.getAttribute('data-id');
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Anda tidak dapat mengembalikan data yang sudah dihapus!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '<?= base_url('home/admin/delete/') ?>' + id;
+                }
+            });
+        });
+    });
+});
+
+</script>
 <?= $this->endSection() ?>
