@@ -46,8 +46,8 @@ class AuthController extends ResourceController
         ]);
 
         return $this->respond([
-            'status' => 000,
-            'message' => '',
+            'status' => 200,
+            'message' => 'Data akun tersedia',
             'data' => $data
         ]);
     }
@@ -96,12 +96,13 @@ class AuthController extends ResourceController
 
     public function registrationPublic()
     {
-        $request  = request();
+        $request = request();
 
         $rules = [
             "name" => "required",
-            "email" => "required",
+            "email" => "required|valid_email",
             "phone" => "required",
+            "ktp" => "uploaded[ktp]|mime_in[ktp,image/jpg,image/jpeg,image/png]" // Validasi file KTP
         ];
 
         $messages = [
@@ -109,32 +110,54 @@ class AuthController extends ResourceController
                 "required" => "Nama tidak boleh kosong"
             ],
             "email" => [
-                "required" => "Email tidak boleh kosong"
+                "required" => "Email tidak boleh kosong",
+                "valid_email" => "Format email tidak valid"
             ],
             "phone" => [
                 "required" => "Nomor HP tidak boleh kosong"
             ],
+            "ktp" => [
+                "uploaded" => "File KTP harus diupload",
+                "mime_in" => "Hanya gambar dengan format jpg, jpeg, png yang diizinkan",
+            ],
         ];
 
-        if (!$this->validate($rules, $messages)) return $this->respond([
-            'status' => 445,
-            'message' => print_r($this->validator->getErrors()),
-            'data' => null
-        ]);
+        if (!$this->validate($rules, $messages)) {
+            return $this->respond([
+                'status' => 445,
+                'message' => print_r($this->validator->getErrors()),
+                'data' => null
+            ]);
+        }
 
-        $area = $request->getPost('area');
-        if ($area == null) $area = '';
+        $name = $request->getVar("name");
+        $email = $request->getVar("email");
+        $phone = $request->getVar("phone");
+        $area = $request->getVar('area') ?? 'Kabupaten Batang';
+
+        // Proses file upload
+        $ktpFile = $request->getFile('ktp');
+        $ktpFilePath = null;
+
+        if ($ktpFile->isValid() && !$ktpFile->hasMoved()) {
+            // $ktpFileName = $phone;
+            $ktpFileName = $ktpFile->getRandomName();
+            // Move the file to the 'assets' folder
+            $ktpFile->move(FCPATH  . 'assets', $ktpFileName);
+            $ktpFilePath = $ktpFileName;
+        }
 
         $result = $this->publicModel->insert([
-            "name"      => $request->getPost("name"),
-            "email"     => $request->getPost("email"),
-            "phone"     => $request->getPost("phone"),
-            "area"      => $area
+            "name"      => $name,
+            "email"     => $email,
+            "phone"     => $phone,
+            "area"      => $area,
+            "ktp"       => $ktpFilePath
         ], false);
 
         if ($result) {
             return $this->respond([
-                "status"    => 0,
+                "status"    => 200,
                 "message"   => "Pembuatan akun berhasil, silahkan login"
             ]);
         } else {
