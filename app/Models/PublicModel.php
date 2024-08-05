@@ -14,12 +14,11 @@ class PublicModel extends Model
     protected $returnType     = 'object';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['name', 'email','area', 'phone', 'created_at', 'updated_at'];
+    protected $allowedFields = ['name', 'email', 'area', 'phone', 'ktp', 'created_at', 'updated_at'];
 
     // Dates
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
-
 }

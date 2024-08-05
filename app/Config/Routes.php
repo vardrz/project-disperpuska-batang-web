@@ -35,11 +35,14 @@ $routes->group('/home', static function ($routes) {
 });
 
 $routes->group('/api', static function ($routes) {
-    $routes->post('login-public', 'AuthController::loginPublic');
-    $routes->post('login-staff', 'AuthController::loginStaff');
-    $routes->post('register-public', 'AuthController::registrationPublic');
+    $routes->post('login-public', 'ApiAuthController::loginPublic');
+    $routes->post('login-staff', 'ApiAuthController::loginStaff');
+    $routes->post('register-public', 'ApiAuthController::registrationPublic');
 
-    $routes->get('search-arsip', 'ArchiveController::findArchived');
-    $routes->get('borrow-list', 'ArchiveController::borrowList');
-    $routes->post('borrow-arsip', 'ArchiveController::leanArchive');
+    $routes->get('list-arsip', 'ApiArcihveController::getArsip');
+    $routes->get('list-arsip/(:any)', 'ApiArcihveController::show/$1');
+    // $routes->get('search-arsip', 'ArchiveController::findArchived');
+    // $routes->get('borrow-list', 'ArchiveController::borrowList');
+    // $routes->post('borrow-arsip', 'ArchiveController::leanArchive');
+
 });
