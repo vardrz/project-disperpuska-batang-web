@@ -41,8 +41,5 @@ $routes->group('/api', static function ($routes) {
 
     $routes->get('list-arsip', 'ApiArcihveController::getArsip');
     $routes->get('list-arsip/(:any)', 'ApiArcihveController::show/$1');
-    // $routes->get('search-arsip', 'ArchiveController::findArchived');
-    // $routes->get('borrow-list', 'ArchiveController::borrowList');
-    // $routes->post('borrow-arsip', 'ArchiveController::leanArchive');
-
+    $routes->post('pinjam-arsip', 'ApiArcihveController::create');
 });

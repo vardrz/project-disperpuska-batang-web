@@ -90,25 +90,57 @@ class ApiArcihveController extends ResourceController
      */
     public function create()
     {
-        if ($this->validate([
-            'user_id'       => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'User id is required'
-                ]
-            ],
-            'archive_id'    => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Archive id is required'
+        if (!$this->validate([
+            'needs'             => [
+                'rules'         => 'required',
+                'errors'        => [
+                    'required'  => 'Keperluan Tidak Boleh Kosong'
                 ]
             ],
         ])) {
             $response = [
                 'status'    => 400,
-                'message'   => 'Terjadi Kesalahan',
+                'error'     => $this->validator->getErrors(),
+                'message'   => [
+                    'error' => 'Keperluan Tidak Boleh Kosong'
+                ]
             ];
+            return $this->fail($response, 400);
         }
+
+        $userData = $this->publicModel->find($this->request->getVar('publics_id'));
+        if (empty($userData)) {
+            $response = [
+                'status'    => 400,
+                'message'   => 'Akun tidak dikenal'
+            ];
+            return $this->fail($response, 404);
+        }
+
+        $archiveData = $this->archiveModel->find($this->request->getVar('archives_id'));
+        if (empty($archiveData)) {
+            $response = [
+                'status'    => 400,
+                'message'   => 'Data arsip tidak dikenal'
+            ];
+            return $this->fail($response, 404);
+        }
+
+        $this->borrowModel->insert([
+            'publics_id'    => $this->request->getVar('publics_id'),
+            'archives_id'   => $this->request->getVar('archives_id'),
+            'needs'         => $this->request->getVar('needs')
+        ]);
+
+        $this->archiveModel->update($this->request->getVar('archives_id'), ['keterangan' => 'Diproses']);
+
+        $response = [
+            'status'    => 201,
+            'message'   => [
+                'success' => 'Peminjaman berhasil'
+            ]
+        ];
+        return $this->respondCreated($response);
     }
 
     /**

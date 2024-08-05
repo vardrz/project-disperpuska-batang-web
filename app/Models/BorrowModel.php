@@ -14,7 +14,7 @@ class BorrowModel extends Model
     protected $returnType     = 'object';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['publics_id', 'archives_id', 'notes', 'needs', 'created_at', 'updated_at'];
+    protected $allowedFields = ['publics_id', 'archives_id', 'needs', 'created_at', 'updated_at'];
 
     // Dates
     protected $useTimestamps = true;
