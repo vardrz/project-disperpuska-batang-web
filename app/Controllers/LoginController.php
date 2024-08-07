@@ -2,18 +2,15 @@
 
 namespace App\Controllers;
 
-use App\Models\BorrowModel;
 use App\Models\StaffModel;
 
 class LoginController extends BaseController
 {
-    protected $borrowModel;
     protected $staffModel;
 
     public function __construct()
     {
         $this->staffModel   = new StaffModel();
-        $this->borrowModel  = new BorrowModel();
     }
 
     public function index()
@@ -40,7 +37,6 @@ class LoginController extends BaseController
                 ]
             ],
         ]);
-        $peminjaman = $this->borrowModel->relasi();
 
         if (!$validation) {
             session()->setFlashdata('message', 'Data harus lengkap');
@@ -60,7 +56,6 @@ class LoginController extends BaseController
         session()->set('user_id', $userStaff->id);
         session()->set('user_nama', $userStaff->name);
         session()->set('user_role', $userStaff->role);
-        session()->set('arsip', $peminjaman);
 
         return redirect()->to(base_url('home'));
     }

@@ -12,6 +12,7 @@ $routes->get('/logout', 'LoginController::logout');
 $routes->group('/home', static function ($routes) {
     $routes->get('/', 'HomeController::index');
     $routes->get('public', 'HomeController::public');
+    $routes->get('public/detail/(:num)', 'HomeController::publicDetail/$1');
     $routes->get('public/delete/(:num)', 'HomeController::publicDelete/$1');
 
     $routes->get('admin', 'HomeController::admin');

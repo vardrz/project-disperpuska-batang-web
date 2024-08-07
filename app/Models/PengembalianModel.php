@@ -28,6 +28,7 @@ class PengembalianModel extends Model
             ->select('archives.id as id_archives, borrow.id as id_borrow, publics.id as id_publics, publics.name as public_name, archives.archives_number, borrow.created_at as tgl_pinjam')
             ->join('publics', 'publics.id = borrow.publics_id')
             ->join('archives', 'archives.id = borrow.archives_id')
+            ->where('archives.keterangan', 'Dipinjam')
             ->get()->getResultObject();
     }
 

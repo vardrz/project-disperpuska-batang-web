@@ -42,6 +42,12 @@ class HomeController extends BaseController
         return view('public', ['publics' => $allData]);
     }
 
+    public function publicDetail($id): string
+    {
+        $oneData = $this->publicsModel->find($id);
+        return view('public_detail', ['public' => $oneData]);
+    }
+
     public function publicDelete($id)
     {
         $this->publicsModel->delete($id);

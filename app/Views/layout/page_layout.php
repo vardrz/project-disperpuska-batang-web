@@ -1,3 +1,12 @@
+<?php
+
+use App\Models\BorrowModel;
+
+$borrowModel  = new BorrowModel();
+$peminjaman = $borrowModel->relasi();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,22 +52,33 @@
 					<li class="nav-item dropdown position-relative">
 						<a class="nav-link position-relative" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<i class="fas fa-envelope"></i>
-							<sup class="badge badge-light badge-counter"><?= count(session()->arsip); ?></sup>
+							<sup class="badge badge-light badge-counter"><?= count($peminjaman); ?></sup>
 						</a>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-							<?php foreach (session()->arsip as $item) : ?>
-								<a href="<?= base_url('home/surat/detail?id=' . $item->archives_id); ?>">
-									<div class="dropdown-item">
-										<strong><?= $item->archives_number; ?></strong>
-										<div class="d-flex justify-content-between small text-muted">
-											<span><?= $item->public_name; ?></span>
-											<span><?= $item->keterangan; ?></span>
+							<span class="dropdown-header bg-primary text-center text-white">Notifikasi</span>
+							<?php if (empty($peminjaman)) : ?>
+								<div class="dropdown-item d-flex align-items-center">
+									<span class="text-secondary text-center">Tidak Ada Pesan</span>
+									<hr>
+								</div>
+							<?php else : ?>
+								<?php foreach ($peminjaman as $item) : ?>
+									<a href="<?= base_url('home/surat/detail?id=' . $item->archives_id); ?>">
+										<div class="dropdown-item d-flex align-items-center">
+											<div>
+												<strong><?= $item->archives_number; ?></strong>
+												<div class="d-flex justify-content-between small text-muted">
+													<span><?= $item->public_name; ?></span>
+													<span class="badge badge-warning badge-pill text-white"><?= $item->keterangan; ?></span>
+												</div>
+											</div>
 										</div>
-									</div>
-								</a>
-							<?php endforeach; ?>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item text-center small" href="<?= base_url('home/surat'); ?>">Show Arsip</a>
+									</a>
+								<?php endforeach; ?>
+							<?php endif; ?>
+							<a class="dropdown-item border-top text-center small" href="<?= base_url('home/surat'); ?>">
+								Show Arsip
+							</a>
 						</div>
 					</li>
 					<li class="nav-item">

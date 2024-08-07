@@ -8,7 +8,7 @@
             <h1 class="my-4">Tabel Akun Public</h1>
             <table class="table table-bordered table-hover">
                 <thead>
-                    <tr>
+                    <tr class="text-center">
                         <th>No</th>
                         <th>Nama</th>
                         <th>Email</th>
@@ -21,7 +21,7 @@
                 <tbody>
                     <?php foreach ($publics as $key => $data) { ?>
                         <tr>
-                            <td><?= $key + 1 ?></td>
+                            <td class="text-center"><?= $key + 1 ?></td>
                             <td><?= $data->name ?></td>
                             <td><?= $data->email ?></td>
                             <td><?= $data->phone ?></td>
@@ -29,7 +29,10 @@
                             <td>
                                 <img class="img-fluid" src="<?= base_url('uploads/' . $data->ktp); ?>" alt="image" style="height: 5rem;" />
                             </td>
-                            <td><a class="btn btn-danger" href="<?= base_url('home/public/delete/' . $data->id) ?>">Hapus</a></td>
+                            <td class="text-center">
+                                <a class="btn btn-warning" href="<?= base_url('home/public/detail/' . $data->id) ?>">Lihat</a>
+                                <a class="btn btn-danger" href="<?= base_url('home/public/delete/' . $data->id) ?>">Hapus</a>
+                            </td>
                         </tr>
                     <?php } ?>
                     <tr>

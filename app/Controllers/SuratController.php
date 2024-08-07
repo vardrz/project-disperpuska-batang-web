@@ -110,17 +110,6 @@ class SuratController extends BaseController
             session()->setFlashdata('pesan', 'Edit Berhasil');
         }
 
-        // update data peminjaman yang telah disimpan di session
-        $peminjaman = session()->get('arsip');
-        // dd($peminjaman);
-        if (!empty($peminjaman)) {
-            foreach ($peminjaman as $key => $value) {
-                if ($value->archives_id == $id) {
-                    unset($peminjaman[$key]);
-                }
-            }
-            session()->set('arsip', $peminjaman);
-        }
         return redirect()->to(base_url('home/surat/detail?id=' . $id));
     }
 
@@ -138,17 +127,6 @@ class SuratController extends BaseController
             session()->setFlashdata('message', 'Terjadi Kesalahan Input');
         } else {
             session()->setFlashdata('pesan', 'Edit Berhasil');
-        }
-
-        // update data peminjaman yang telah disimpan di session
-        $peminjaman = session()->get('arsip');
-        if (!empty($peminjaman)) {
-            foreach ($peminjaman as $key => $value) {
-                if ($value->archives_id == $id_archives) {
-                    unset($peminjaman[$key]);
-                }
-            }
-            session()->set('arsip', $peminjaman);
         }
 
         $this->borrowModel->delete($id);
