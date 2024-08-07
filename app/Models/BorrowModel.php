@@ -21,4 +21,14 @@ class BorrowModel extends Model
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
+
+    public function relasi()
+    {
+        return $this->db->table('borrow')
+            ->select('borrow.*, publics.name as public_name, archives.archives_number, archives.keterangan')
+            ->join('publics', 'publics.id = borrow.publics_id')
+            ->join('archives', 'archives.id = borrow.archives_id')
+            ->where('archives.keterangan', 'Diproses')
+            ->get()->getResultObject();
+    }
 }

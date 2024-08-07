@@ -30,8 +30,10 @@
                         <td class="text-center">
                             <?php if ($value->keterangan == 'Tersedia') : ?>
                                 <span class="badge bg-success text-white">Tersedia</span>
-                            <?php else : ?>
+                            <?php elseif ($value->keterangan == 'Dipinjam') : ?>
                                 <span class="badge bg-danger text-white">Dipinjam</span>
+                            <?php else : ?>
+                                <span class="badge bg-warning text-white">Diproses</span>
                             <?php endif; ?>
                         </td>
                         <td>

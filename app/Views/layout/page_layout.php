@@ -8,32 +8,58 @@
 
 	<?= $this->include('layout/css_session') ?>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
 </head>
 
 <body>
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 		<div class="container">
-			<a class="navbar-brand" href="<?= base_url() ?>">Home</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav">
-					<li class="nav-item">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item <?= (uri_string() == 'home') ? 'active' : '' ?>">
+						<a class="nav-link" href="<?= base_url('home') ?>">Home</a>
+					</li>
+					<li class="nav-item <?= (uri_string() == 'home/surat') ? 'active' : '' ?>">
 						<a class="nav-link" href="<?= base_url('home/surat') ?>">Arsip</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item <?= (uri_string() == 'home/public') ? 'active' : '' ?>">
 						<a class="nav-link" href="<?= base_url('home/public') ?>">Anggota</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item <?= (uri_string() == 'home/admin') ? 'active' : '' ?>">
 						<a class="nav-link" href="<?= base_url('home/admin') ?>">Admin</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item <?= (uri_string() == 'home/pengembalian') ? 'active' : '' ?>">
 						<a class="nav-link" href="<?= base_url('home/pengembalian') ?>">Pengembalian</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item <?= (uri_string() == 'home/laporan') ? 'active' : '' ?>">
 						<a class="nav-link" href="<?= base_url('home/laporan') ?>">Laporan</a>
+					</li>
+				</ul>
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item dropdown position-relative">
+						<a class="nav-link position-relative" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fas fa-envelope"></i>
+							<sup class="badge badge-light badge-counter"><?= count(session()->arsip); ?></sup>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+							<?php foreach (session()->arsip as $item) : ?>
+								<a href="<?= base_url('home/surat/detail?id=' . $item->archives_id); ?>">
+									<div class="dropdown-item">
+										<strong><?= $item->archives_number; ?></strong>
+										<div class="d-flex justify-content-between small text-muted">
+											<span><?= $item->public_name; ?></span>
+											<span><?= $item->keterangan; ?></span>
+										</div>
+									</div>
+								</a>
+							<?php endforeach; ?>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item text-center small" href="<?= base_url('home/surat'); ?>">Show Arsip</a>
+						</div>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="<?= base_url('logout') ?>">Logout</a>

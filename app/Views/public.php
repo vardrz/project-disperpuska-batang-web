@@ -14,18 +14,22 @@
                         <th>Email</th>
                         <th>No HP</th>
                         <th>Wilayah</th>
+                        <th>KTP</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($publics as $key => $data) { ?>
+                    <?php foreach ($publics as $key => $data) { ?>
                         <tr>
-                            <td><?= $key+1?></td>
-                            <td><?= $data->name?></td>
-                            <td><?= $data->email?></td>
-                            <td><?= $data->phone?></td>
-                            <td><?= $data->area?></td>
-                            <td><a class="btn btn-danger" href="<?=base_url('home/public/delete/'.$data->id)?>">Hapus</a></td>
+                            <td><?= $key + 1 ?></td>
+                            <td><?= $data->name ?></td>
+                            <td><?= $data->email ?></td>
+                            <td><?= $data->phone ?></td>
+                            <td><?= $data->area ?></td>
+                            <td>
+                                <img class="img-fluid" src="<?= base_url('uploads/' . $data->ktp); ?>" alt="image" style="height: 5rem;" />
+                            </td>
+                            <td><a class="btn btn-danger" href="<?= base_url('home/public/delete/' . $data->id) ?>">Hapus</a></td>
                         </tr>
                     <?php } ?>
                     <tr>

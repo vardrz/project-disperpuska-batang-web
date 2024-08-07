@@ -53,12 +53,12 @@
                         </div>
                     <?php endif ?>
 
-                    <?php foreach ($peminjam as $value) { ?>
+                    <?php foreach ($peminjam as $value) : ?>
                         <input type="hidden" id="archive_<?= $value->id_borrow ?>" value="<?= $value->archives_number ?>">
                         <input type="hidden" id="date_<?= $value->id_borrow ?>" value="<?= $value->tgl_pinjam ?>">
                         <input type="hidden" id="archives_<?= $value->id_borrow ?>" value="<?= $value->id_archives ?>">
                         <input type="hidden" id="publics_<?= $value->id_borrow ?>" value="<?= $value->id_publics ?>">
-                    <?php } ?>
+                    <?php endforeach; ?>
                     <div id="show_borrow_data" class="d-none mt-2">
                         <input type="hidden" name="id_archives" id="show_archives" class="form-control" value="" readonly />
                         <input type="hidden" name="id_publics" id="show_publics" class="form-control" value="" readonly />
@@ -66,6 +66,8 @@
                         <input type="text" id="show_archive" class="form-control" value="" readonly />
                         <label class="form-label mt-2" for="date">Tanggal Pinjam</label>
                         <input type="text" name="tgl_pinjam" id="show_date" class="form-control" value="" readonly />
+                        <label class="form-label mt-2" for="denda">Denda</label>
+                        <input type="text" name="denda" id="show_denda" class="form-control" value="" readonly />
                     </div>
                 </div>
 
@@ -111,6 +113,10 @@
         var publics = document.getElementById("publics_" + id).value;
         var date = document.getElementById("date_" + id).value;
 
+        var date1 = new Date(date);
+        var date2 = new Date();
+
+        // document.getElementById("show_denda").value = denda;
         document.getElementById("show_archive").value = archive;
         document.getElementById("show_archives").value = archives;
         document.getElementById("show_publics").value = publics;

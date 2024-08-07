@@ -8,12 +8,11 @@
         <h1 class="my-3">Tabel Peminjam</h1>
         <table class="table table-bordered table-hover">
             <thead>
-                <tr>
+                <tr class="text-center">
                     <th>No</th>
                     <th>Tanggal</th>
                     <th>Nama Peminjam</th>
-                    <th>Kebutuhan</th>
-                    <th>Catatan</th>
+                    <th>Keperluan</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -24,12 +23,16 @@
                         <td><?= $value->created_at ?></td>
                         <td><?= $value->public_name ?></td>
                         <td><?= $value->needs ?></td>
-                        <td><?= $value->notes ?></td>
-                        <td>-</td>
+                        <td class="text-center">
+                            <?php if ($data->keterangan == 'Diproses') : ?>
+                                <a href="<?= base_url('home/peminjaman/Diterima/' . $value->archives_id) ?>" class="btn btn-success btn-sm">Diterima</a>
+                                <a href="<?= base_url('home/peminjaman/Ditolak/' . $value->id) ?>" class="btn btn-danger btn-sm">Ditolak</a>
+                            <?php elseif ($data->keterangan == 'Dipinjam') : ?>
+                                <span class="badge badge-success">Dipinjam</span>
+                            <?php endif; ?>
+                        </td>
                     </tr>
                 <?php } ?>
-                <tr>
-                </tr>
             </tbody>
         </table>
 

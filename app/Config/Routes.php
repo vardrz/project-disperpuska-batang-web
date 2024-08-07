@@ -22,6 +22,9 @@ $routes->group('/home', static function ($routes) {
     $routes->get('surat/detail', 'SuratController::suratDetail');
     $routes->post('surat/save', 'SuratController::suratSave');
 
+    $routes->get('peminjaman/Diterima/(:num)', 'SuratController::diterima/$1');
+    $routes->get('peminjaman/Ditolak/(:num)', 'SuratController::ditolak/$1');
+
     $routes->get('pengembalian', 'PengembalianController::pengembalian');
     $routes->post('pengembalian/save', 'PengembalianController::pengembalianSave');
     $routes->get('pengembalian/edit/(:any)', 'PengembalianController::pengembalianEdit/$1');
