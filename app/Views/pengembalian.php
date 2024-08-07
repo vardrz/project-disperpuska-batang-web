@@ -66,8 +66,6 @@
                         <input type="text" id="show_archive" class="form-control" value="" readonly />
                         <label class="form-label mt-2" for="date">Tanggal Pinjam</label>
                         <input type="text" name="tgl_pinjam" id="show_date" class="form-control" value="" readonly />
-                        <label class="form-label mt-2" for="denda">Denda</label>
-                        <input type="text" name="denda" id="show_denda" class="form-control" value="" readonly />
                     </div>
                 </div>
 
@@ -88,12 +86,17 @@
 
                 <div class="form-outline mt-2">
                     <label class="form-label" for="tgl_kembali">Tanggal Kembali</label>
-                    <input type="datetime-local" name="tgl_kembali" id="tgl_kembali" class="form-control <?= isset(session()->get('validator')['tgl_kembali']) ? 'is-invalid' : ''; ?>" value="<?= old('tgl_kembali') ?>" />
+                    <input type="datetime-local" name="tgl_kembali" id="tgl_kembali" class="form-control <?= isset(session()->get('validator')['tgl_kembali']) ? 'is-invalid' : ''; ?>" value="<?= old('tgl_kembali') ?>" onchange="Denda()" />
                     <?php if (isset(session()->get('validator')['tgl_kembali'])) : ?>
                         <div class="invalid-feedback">
                             <?= session()->get('validator')['tgl_kembali']; ?>
                         </div>
                     <?php endif ?>
+
+                    <div id="show_denda" class="d-none mt-2">
+                        <label class="form-label mt-2" for="denda">Denda</label>
+                        <input type="text" name="denda" id="show_hasil_denda" class="form-control" value="" readonly />
+                    </div>
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-block mt-4">Sudah Dikembalikan</button>
@@ -113,14 +116,60 @@
         var publics = document.getElementById("publics_" + id).value;
         var date = document.getElementById("date_" + id).value;
 
-        var date1 = new Date(date);
-        var date2 = new Date();
-
-        // document.getElementById("show_denda").value = denda;
         document.getElementById("show_archive").value = archive;
         document.getElementById("show_archives").value = archives;
         document.getElementById("show_publics").value = publics;
         document.getElementById("show_date").value = date;
+    }
+
+    function Denda() {
+        var id = document.getElementById("peminjam").value;
+        document.getElementById("show_denda").classList.remove("d-none");
+        document.getElementById("show_denda").classList.add("d-block");
+        var tgl_kembali = document.getElementById("tgl_kembali").value;
+        var tgl_pinjam = document.getElementById("show_date").value;
+
+        var date_K = tgl_kembali.split("T");
+        var date_K1 = date_K[0].split("-");
+
+        var date_P = tgl_pinjam.split(" ");
+        var date_P1 = date_P[0].split("-");
+
+        var pengembalian_date = new Date(date_K1[0] + "-" + date_K1[1] + "-" + date_K1[2]);
+        var pengajuan_date = new Date(date_P1[0] + "-" + date_P1[1] + "-" + date_P1[2]);
+
+        // var pengajuan_date = date_P1[0] + "-" +
+        //     date_P1[1] + "-" + date_P1[2];
+        // var pengembalian_date = date_K1[0] + "-" +
+        //     date_K1[1] + "-" + date_K1[2];
+
+        var days = DaysBetween(pengajuan_date, pengembalian_date);
+
+        if (days > 7) {
+            var denda = (days - 7) * 2000;
+        } else {
+            var denda = 0;
+        }
+        var format = number_format(denda);
+        document.getElementById("show_hasil_denda").value = format;
+    }
+
+    function DaysBetween(StartDate, EndDate) {
+        const oneDay = 1000 * 60 * 60 * 24;
+
+        const start = Date.UTC(EndDate.getFullYear(), EndDate.getMonth(), EndDate.getDate());
+        const end = Date.UTC(StartDate.getFullYear(), StartDate.getMonth(), StartDate.getDate());
+
+        return (start - end) / oneDay;
+    }
+
+    function number_format(number) {
+        var formatter = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0
+        });
+        return formatter.format(number);
     }
 </script>
 
