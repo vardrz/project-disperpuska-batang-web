@@ -23,24 +23,22 @@ class LoginController extends BaseController
 
     public function login()
     {
-        $validation = $this->validate([
-            'nip' => [
+        if (!$this->validate([
+            'nip'   => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'NIP tidak boleh kosong.'
+                    'required' => 'NIP harus diisi.'
                 ]
             ],
-            'password' => [
+            'password'   => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Password tidak boleh kosong.'
+                    'required' => 'Password harus diisi.'
                 ]
-            ],
-        ]);
-
-        if (!$validation) {
-            session()->setFlashdata('message', 'Data harus lengkap');
-            return redirect()->to(base_url(''));
+            ]
+        ])) {
+            session()->setFlashdata('message', $this->validator->listErrors());
+            return redirect()->to(base_url('/'))->withInput();
         }
 
         $nip = $this->request->getPost('nip');
@@ -49,14 +47,14 @@ class LoginController extends BaseController
         $userStaff = $this->staffModel->where('nip', $nip)->where('password', $password)->get()->getFirstRow();
         if (empty($userStaff)) {
             session()->setFlashdata('message', 'Data tidak dikenal');
-            return redirect()->to(base_url(''));
+            return redirect()->to(base_url('/'));
         }
-
-
         session()->set('user_id', $userStaff->id);
         session()->set('user_nama', $userStaff->name);
-        session()->set('user_role', $userStaff->role);
+        session()->set('role', $userStaff->role);
+        session()->set('logged_in', TRUE);
 
+        session()->setFlashdata('pesan', 'Login Berhasil');
         return redirect()->to(base_url('home'));
     }
 

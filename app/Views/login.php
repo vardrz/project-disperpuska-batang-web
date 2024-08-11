@@ -19,7 +19,13 @@
                             <div class="card-body p-5">
 
                                 <h3 class="mb-5 text-center">Sign in As Staff</h3>
+                                <?php if (!empty(session()->getFlashdata('message'))) : ?>
 
+                                    <div class="alert alert-danger">
+                                        <?php echo session()->getFlashdata('message'); ?>
+                                    </div>
+
+                                <?php endif ?>
                                 <div class="form-group form-outline mb-4">
                                     <label class="form-label" for="nip">Nomor Induk Pegawai</label>
                                     <input id="nip" class="form-control form-control-lg" name="nip" />
@@ -35,14 +41,6 @@
                                 <hr class="my-4">
                             </div>
                         </form>
-
-                        <?php if (!empty(session()->getFlashdata('message'))) : ?>
-
-                            <div class="alert alert-danger">
-                                <?php echo session()->getFlashdata('message'); ?>
-                            </div>
-
-                        <?php endif ?>
                     </div>
                 </div>
             </div>

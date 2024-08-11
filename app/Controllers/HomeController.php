@@ -6,6 +6,7 @@ use App\Models\ArchivesModel;
 use App\Models\BorrowModel;
 use App\Models\PublicModel;
 use App\Models\StaffModel;
+use CodeIgniter\Database\Exceptions\DatabaseException;
 use stdClass;
 
 class HomeController extends BaseController
@@ -50,7 +51,19 @@ class HomeController extends BaseController
 
     public function publicDelete($id)
     {
-        $this->publicsModel->delete($id);
+        $idp = $this->publicsModel->find($id);
+        try {
+            if ($this->publicsModel->delete($id)) {
+                unlink('uploads/' . $idp->ktp);
+            }
+            session()->setFlashdata('pesan', 'Data berhasil dihapus.');
+        } catch (DatabaseException $e) {
+            session()->setFlashdata('message', 'Data Tidak bisa dihapus');
+            // . $e->getMessage());
+        } catch (\Exception $e) {
+            session()->setFlashdata('message', 'Data Tidak bisa dihapus, Terjadi kesalahan yang tidak terduga.');
+        }
+
         return redirect()->to(base_url('home/public'));
     }
 

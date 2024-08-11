@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-8">
             <h1 class="my-3">Tabel Data Admin</h1>
-            <a class="btn btn-primary align-right" href="<?=base_url('home/admin')?>">Tambah</a>
+            <a class="btn btn-primary align-right" href="<?= base_url('home/admin') ?>">Tambah</a>
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
@@ -40,38 +40,38 @@
         </div>
         <div class="col-4">
             <form class="form" method="POST" action="
-            <?php if(empty($is_edit)) {
-                        echo base_url('home/admin/save');
+            <?php if (empty($is_edit)) {
+                echo base_url('home/admin/save');
+            } else {
+                echo base_url('home/admin/save?id=' . $data->id);
+            } ?>">
+
+                <h3><?php
+                    if (empty($is_edit)) {
+                        echo "Tambah Data Admin";
                     } else {
-                        echo base_url('home/admin/save?id='.$data->id);
-                    } ?>">
-                        
-                <h3><?php 
-                if(empty($is_edit)) {
-                    echo"Tambah Data Admin";
-                } else {
-                    echo "Edit Data Admin";
-                } ?></h3>
-                <input type="hidden" name="id" value="<?=$data->id?>"/>
+                        echo "Edit Data Admin";
+                    } ?></h3>
+                <input type="hidden" name="id" value="<?= $data->id ?>" />
                 <div class="form-outline mt-4">
                     <label class="form-label" for="nip" name="nip">Nomor Pegawai</label>
-                    <input type="text" id="nip" class="form-control" name="nip" value="<?=$data->nip?>"/>
+                    <input type="text" id="nip" class="form-control" name="nip" value="<?= $data->nip ?>" />
                 </div>
 
                 <div class="form-outline mt-2">
                     <label class="form-label" for="nama" name="nama">Nama Lengkap</label>
-                    <input type="text" id="nama" class="form-control" name="nama" value="<?=$data->name?>"/>
+                    <input type="text" id="nama" class="form-control" name="nama" value="<?= $data->name ?>" />
                 </div>
 
                 <div class="form-outline mt-2">
                     <label class="form-label" for="password">Password</label>
-                    <input type="text" id="password" class="form-control" name="password" value="<?=$data->password?>"/>
+                    <input type="text" id="password" class="form-control" name="password" value="<?= $data->password ?>" />
                 </div>
-                
+
                 <label class="form-label mt-2" for="tipe">Tipe</label>
                 <select class="browser-default custom-select" id="tipe" name="tipe">
-                    <option value="staff" <?=($data->role == 'staff'?'selected="selected"':'')?>>Staff</option>
-                    <option value="admin" <?=($data->role == 'admin'?'selected="selected"':'')?>>Admin</option>
+                    <option value="staff" <?= ($data->role == 'staff' ? 'selected="selected"' : '') ?>>Staff</option>
+                    <option value="admin" <?= ($data->role == 'admin' ? 'selected="selected"' : '') ?>>Admin</option>
                 </select>
 
                 <button type="submit" class="btn btn-primary btn-block mt-4">Simpan</button>
@@ -83,28 +83,27 @@
 <?= $this->endSection() ?>
 <?= $this->section('script') ?>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-    const deleteButtons = document.querySelectorAll('.btn-delete');
-    deleteButtons.forEach(button => {
-        button.addEventListener('click', function (e) {
-            e.preventDefault();
-            const id = this.getAttribute('data-id');
-            Swal.fire({
-                title: 'Apakah anda yakin?',
-                text: "Anda tidak dapat mengembalikan data yang sudah dihapus!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, hapus!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = '<?= base_url('home/admin/delete/') ?>' + id;
-                }
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteButtons = document.querySelectorAll('.btn-delete');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const id = this.getAttribute('data-id');
+                Swal.fire({
+                    title: 'Apakah anda yakin?',
+                    text: "Anda tidak dapat mengembalikan data yang sudah dihapus!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, hapus!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '<?= base_url('home/admin/delete/') ?>' + id;
+                    }
+                });
             });
         });
     });
-});
-
 </script>
 <?= $this->endSection() ?>

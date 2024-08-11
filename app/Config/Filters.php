@@ -24,6 +24,7 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+        'admin'         => \App\Filters\Admin::class,
     ];
 
     /**
@@ -37,11 +38,13 @@ class Filters extends BaseConfig
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
+            'admin'     => ['except' => ['/', 'login', 'api/*', 'logout']],
         ],
         'after' => [
             'toolbar',
             // 'honeypot',
             // 'secureheaders',
+            'admin'     => ['except' => ['logout', 'home', 'home/*']],
         ],
     ];
 
