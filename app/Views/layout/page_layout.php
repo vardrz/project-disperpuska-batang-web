@@ -105,7 +105,7 @@ $peminjaman = $borrowModel->relasi();
 		<div class="container text-center p-3">Copyright &copy <?= Date('Y') ?> Kearsipan</div>
 	</footer>
 
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+	<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script> -->
 	<?= $this->include('layout/js_session') ?>
 	<?= $this->renderSection('script') ?>
 	<script>
